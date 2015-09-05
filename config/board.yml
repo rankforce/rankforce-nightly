@@ -1,0 +1,32 @@
+ # example.
+ # - boardname
+ #  ikioi: threshold value [required]
+ #  time: execution time (format: 00:00(24-hour) or 5(minites))
+
+- newsplus:
+    ikioi: 11000
+    time: 3
+- news:
+    ikioi: 5000
+    time: 5
+- news4vip:
+    ikioi: 9000
+    time: 10
+- poverty:
+    ikioi: 8000
+    time: 12
+- mnewsplus:
+    ikioi: 5000
+    time: 15
+- bizplus:
+    ikioi: 1500
+    time: 10
+- news4plus:
+    ikioi: 7000
+    time: 10
+- wildplus:
+    ikioi: 1500
+    time: 13
+- liveplus:
+    ikioi: 1500
+    time: 11
