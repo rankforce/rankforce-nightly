@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 # for local
-ruby '2.2.2'
+# ruby '2.2.2'
 # for Heroku
-# ruby '2.2.3'
+ruby '2.2.3'
 
 gem 'log4ever'
 gem 'parallel_runner'

@@ -5,12 +5,9 @@ require 'rspec/core/rake_task'
 require 'yaml'
 
 config_files = [
-  # YAML.load_file(File.dirname(__FILE__) + "/core/config/twitter.auth.yml"),
-  # YAML.load_file(File.dirname(__FILE__) + "/core/config/evernote.auth.yml"),
-  # YAML.load_file(File.dirname(__FILE__) + "/core/config/mongolab.yml")
-  YAML.load_file(File.dirname(__FILE__) + "/core/config/twitter.auth.test.yml"),
+  YAML.load_file(File.dirname(__FILE__) + "/core/config/twitter.auth.yml"),
   YAML.load_file(File.dirname(__FILE__) + "/core/config/evernote.auth.yml"),
-  YAML.load_file(File.dirname(__FILE__) + "/core/config/mongolab.test.yml"),
+  YAML.load_file(File.dirname(__FILE__) + "/core/config/mongolab.yml"),
   YAML.load_file(File.dirname(__FILE__) + "/core/config/bitly.auth.yml")
 ]
 
