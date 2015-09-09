@@ -30,11 +30,11 @@ RCSLOG
 SCCS
 _$*
 _svn
-core/config/evernote.auth.yml
-core/config/twitter.auth.yml
-core/config/twitter.auth.test.yml
-core/config/bitly.auth.yml
-core/config/mongolab.yml
-core/config/mongolab.test.yml
+config/evernote.auth.yml
+config/twitter.auth.yml
+config/twitter.auth.test.yml
+config/bitly.auth.yml
 sandbox/
 tweetstream*
+config/mongolab.yml
+config/mongolab.test.yml
