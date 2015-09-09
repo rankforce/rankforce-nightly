@@ -66,14 +66,14 @@ module RankForce
         @client_stream.on_anything do |status|
           # follow and send direct message
           follow(direct_message % VERSION, status) if status[:event] == 'follow'
-          # retweet
-          retweet(status) unless status[:retweeted_status].nil?
-          # quote_retweet
-          quote_retweet(status) if status[:retweeted_status].nil? && status[:event].nil?
-          # favorite
-          favorite(status) if status[:event] == 'favorite'
-          # unfavorite
-          unfavorite(status) if status[:event] == 'unfavorite'
+          # # retweet
+          # retweet(status) unless status[:retweeted_status].nil?
+          # # quote_retweet
+          # quote_retweet(status) if status[:retweeted_status].nil? && status[:event].nil?
+          # # favorite
+          # favorite(status) if status[:event] == 'favorite'
+          # # unfavorite
+          # unfavorite(status) if status[:event] == 'unfavorite'
         end
         @client_stream.on_error do |message|
           syslog.error(message)
