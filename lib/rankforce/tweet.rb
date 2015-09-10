@@ -66,14 +66,14 @@ module RankForce
         @client_stream.on_anything do |status|
           # follow and send direct message
           follow(direct_message % VERSION, status) if status[:event] == 'follow'
-          # # retweet
-          # retweet(status) unless status[:retweeted_status].nil?
-          # # quote_retweet
-          # quote_retweet(status) if status[:retweeted_status].nil? && status[:event].nil?
-          # # favorite
-          # favorite(status) if status[:event] == 'favorite'
-          # # unfavorite
-          # unfavorite(status) if status[:event] == 'unfavorite'
+          # retweet
+          retweet(status) unless status[:retweeted_status].nil?
+          # quote_retweet
+          quote_retweet(status) if status[:retweeted_status].nil? && status[:event].nil?
+          # favorite
+          favorite(status) if status[:event] == 'favorite'
+          # unfavorite
+          unfavorite(status) if status[:event] == 'unfavorite'
         end
         @client_stream.on_error do |message|
           syslog.error(message)
@@ -92,17 +92,20 @@ module RankForce
 
     def retweet(status)
       name = status[:user][:screen_name]
-      url = decode_url(status[:entities][:urls][0][:expanded_url])
-      delete_resnum(url)
-      list = @mongo_client.get(:url => url)
-      if !list.nil? && list.size > 0
-        data = list[0]
-        data['retweet'] = data['retweet'] + 1
-        @mongo_client.put(data, :url => url)
-        syslog.info("Retweeted by #{name}")
-        syslog.info("Total retweets in #{url}: #{data['retweet']}")
+      url = delete_resnum(decode_url(status[:entities][:urls][0][:expanded_url]))
+      unless url.nil?
+        list = @mongo_client.get(:url => url)
+        if !list.nil? && list.size > 0
+          data = list[0]
+          data['retweet'] = data['retweet'] + 1
+          @mongo_client.put(data, :url => url)
+          syslog.info("Retweeted by #{name}")
+          syslog.info("Total retweets in #{url}: #{data['retweet']}")
+        else
+          syslog.error("Retweet data can not get from mongolab: " + url)
+        end
       else
-        syslog.error("Retweet data can not get from mongolab: " + url)
+        syslog.error("Retweet url can not get.")
       end
     end
 
@@ -112,33 +115,39 @@ module RankForce
 
     def favorite(status)
       name = status[:source][:screen_name]
-      url = decode_url(status[:target_object][:entities][:urls][0][:expanded_url])
-      delete_resnum(url)
-      list = @mongo_client.get(:url => url)
-      if !list.nil? && list.size > 0
-        data = list[0]
-        data['favorite'] = (data['favorite'] || 0) + 1
-        @mongo_client.put(data, :url => url)
-        syslog.info("Favorite by #{name}")
-        syslog.info("Total favorites in #{url}: #{data['favorite']}")
+      url = delete_resnum(decode_url(status[:target_object][:entities][:urls][0][:expanded_url]))
+      unless url.nil?
+        list = @mongo_client.get(:url => url)
+        if !list.nil? && list.size > 0
+          data = list[0]
+          data['favorite'] = (data['favorite'] || 0) + 1
+          @mongo_client.put(data, :url => url)
+          syslog.info("Favorite by #{name}")
+          syslog.info("Total favorites in #{url}: #{data['favorite']}")
+        else
+          syslog.error("Favorite data can not get from mongolab: " + url)
+        end
       else
-        syslog.error("Favorite data can not get from mongolab: " + url)
+        syslog.error("Favorite url can not get.")
       end
     end
 
     def unfavorite(status)
       name = status[:source][:screen_name]
-      url = decode_url(status[:target_object][:entities][:urls][0][:expanded_url])
-      delete_resnum(url)
-      list = @mongo_client.get(:url => url)
-      if !list.nil? && list.size > 0
-        data = list[0]
-        data['favorite'] = data['favorite'] - 1
-        @mongo_client.put(data, :url => url)
-        syslog.info("Unfavorite by #{name}")
-        syslog.info("Total favorites in #{url}: #{data['favorite']}")
+      url = delete_resnum(decode_url(status[:target_object][:entities][:urls][0][:expanded_url]))
+      unless url.nil?
+        list = @mongo_client.get(:url => url)
+        if !list.nil? && list.size > 0
+          data = list[0]
+          data['favorite'] = data['favorite'] - 1
+          @mongo_client.put(data, :url => url)
+          syslog.info("Unfavorite by #{name}")
+          syslog.info("Total favorites in #{url}: #{data['favorite']}")
+        else
+          syslog.error("Unfavorite data can not get from mongolab: " + url)
+        end
       else
-        syslog.error("Unfavorite data can not get from mongolab: " + url)
+        syslog.error("Unfavorite url can not get.")
       end
     end
 

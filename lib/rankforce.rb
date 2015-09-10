@@ -45,7 +45,7 @@ module RankForce
         crawler = Crawler.new(board, ikioi)
         crawler.get do |data, name|
           begin
-            delete_resnum(data[:url])
+            data[:url] = delete_resnum(data[:url])
             @mongo_client.save(data) do
               @limit.run do |count, limit_date|
                 syslog.info("Tweet count: #{count}/#{TWEET_LIMIT}")

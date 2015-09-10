@@ -13,13 +13,13 @@ module RankForce
     end
 
     def delete_resnum(url)
-      url.nil? ? '' : url.gsub!(/\/&res=\d+/, '')
+      url.gsub(/\/&res=\d+/, '') unless url.nil?
     end
 
     def delete_copy(title)
       title.gsub(/\u00A92ch\.net/, '')
            .gsub(/\[\u8EE2\u8F09\u7981\u6B62\]/, '')
-           .gsub(/\[[\d+]\]/, '')
+           .gsub(/\[\d+\]/, '')
            .strip unless title.nil?
     end
 
