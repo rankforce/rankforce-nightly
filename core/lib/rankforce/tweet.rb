@@ -67,7 +67,7 @@ module RankForce
           # follow and send direct message
           follow(direct_message % VERSION, status) if status[:event] == 'follow'
           # # retweet
-          # retweet(status) unless status[:retweeted_status].nil?
+          retweet(status) unless status[:retweeted_status].nil?
           # # quote_retweet
           # quote_retweet(status) if status[:retweeted_status].nil? && status[:event].nil?
           # # favorite
