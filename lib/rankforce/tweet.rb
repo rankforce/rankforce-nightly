@@ -67,13 +67,13 @@ module RankForce
           # follow and send direct message
           follow(direct_message % VERSION, status) if status[:event] == 'follow'
           # # retweet
-          retweet(status) unless status[:retweeted_status].nil?
+          # retweet(status) unless status[:retweeted_status].nil?
           # # quote_retweet
           # quote_retweet(status) if status[:retweeted_status].nil? && status[:event].nil?
-          # # favorite
-          # favorite(status) if status[:event] == 'favorite'
-          # # unfavorite
-          # unfavorite(status) if status[:event] == 'unfavorite'
+          # favorite
+          favorite(status) if status[:event] == 'favorite'
+          # unfavorite
+          unfavorite(status) if status[:event] == 'unfavorite'
         end
         @client_stream.on_error do |message|
           syslog.error(message)
@@ -92,23 +92,21 @@ module RankForce
 
     def retweet(status)
       name = status[:user][:screen_name]
-      syslog.info(status[:entities])
-      syslog.info(status[:entities][:urls][0][:expanded_url])
-      # url = delete_resnum(decode_url(status[:entities][:urls][0][:expanded_url]))
-      # unless url.nil?
-      #   list = @mongo_client.get(:url => url)
-      #   if !list.nil? && list.size > 0
-      #     data = list[0]
-      #     data['retweet'] = data['retweet'] + 1
-      #     @mongo_client.put(data, :url => url)
-      #     syslog.info("Retweeted by #{name}")
-      #     syslog.info("Total retweets in #{url}: #{data['retweet']}")
-      #   else
-      #     syslog.error("Retweet data can not get from mongolab: " + url)
-      #   end
-      # else
-      #   syslog.error("Retweet url can not get.")
-      # end
+      url = delete_resnum(decode_url(status[:entities][:urls][0][:expanded_url]))
+      unless url.nil?
+        list = @mongo_client.get(:url => url)
+        if !list.nil? && list.size > 0
+          data = list[0]
+          data['retweet'] = data['retweet'] + 1
+          @mongo_client.put(data, :url => url)
+          syslog.info("Retweeted by #{name}")
+          syslog.info("Total retweets in #{url}: #{data['retweet']}")
+        else
+          syslog.error("Retweet data can not get from mongolab: " + url)
+        end
+      else
+        syslog.error("Retweet url can not get.")
+      end
     end
 
     def quote_retweet(status)
