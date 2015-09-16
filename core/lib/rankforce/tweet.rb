@@ -92,21 +92,23 @@ module RankForce
 
     def retweet(status)
       name = status[:user][:screen_name]
-      url = delete_resnum(decode_url(status[:entities][:urls][0][:expanded_url]))
-      unless url.nil?
-        list = @mongo_client.get(:url => url)
-        if !list.nil? && list.size > 0
-          data = list[0]
-          data['retweet'] = data['retweet'] + 1
-          @mongo_client.put(data, :url => url)
-          syslog.info("Retweeted by #{name}")
-          syslog.info("Total retweets in #{url}: #{data['retweet']}")
-        else
-          syslog.error("Retweet data can not get from mongolab: " + url)
-        end
-      else
-        syslog.error("Retweet url can not get.")
-      end
+      syslog.info(status[:entities])
+      syslog.info(status[:entities][:urls][0][:expanded_url])
+      # url = delete_resnum(decode_url(status[:entities][:urls][0][:expanded_url]))
+      # unless url.nil?
+      #   list = @mongo_client.get(:url => url)
+      #   if !list.nil? && list.size > 0
+      #     data = list[0]
+      #     data['retweet'] = data['retweet'] + 1
+      #     @mongo_client.put(data, :url => url)
+      #     syslog.info("Retweeted by #{name}")
+      #     syslog.info("Total retweets in #{url}: #{data['retweet']}")
+      #   else
+      #     syslog.error("Retweet data can not get from mongolab: " + url)
+      #   end
+      # else
+      #   syslog.error("Retweet url can not get.")
+      # end
     end
 
     def quote_retweet(status)
