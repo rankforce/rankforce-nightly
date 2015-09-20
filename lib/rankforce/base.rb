@@ -45,6 +45,17 @@ module RankForce
       @boards = Hash[*([list_en, list_ja].transpose).flatten]
     end
 
+    def ngwords
+      ngwords = []
+      File.open("#{CONFIG_ROOT}/#{NGWORD}", 'r:utf-8') do |f|
+        f.each_line do |line|
+          ngwords << line.strip unless line.empty?
+        end
+        return f.read.strip
+      end
+      ngwords
+    end
+
     def evernote_auth_token
       path = File.dirname(__FILE__) + "/../../config/evernote.auth.yml"
       load_config(path, 'auth_token')
