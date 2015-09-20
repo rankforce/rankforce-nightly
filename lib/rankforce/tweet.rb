@@ -49,7 +49,7 @@ module RankForce
 
     private
     def direct_message
-      File.open("#{CONFIG_ROOT}/#{DIECT_MESSAGE}") do |f|
+      File.open("#{CONFIG_ROOT}/#{DIRECT_MESSAGE}") do |f|
         return f.read.strip
       end
     end

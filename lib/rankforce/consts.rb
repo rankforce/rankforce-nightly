@@ -8,7 +8,8 @@ module RankForce
     API_URL         = "#{CRAWLE_URL}/ranking.json"
     BOARD_FILE_JA   = 'board.ja.txt'
     BOARD_FILE_EN   = 'board.en.txt'
-    DIECT_MESSAGE   = 'direct_message.txt'
+    DIRECT_MESSAGE  = 'direct_message.txt'
+    NGWORD          = 'ngword.txt'
     CONFIG_ROOT     = File.dirname(__FILE__) + "/../../config"
     BOARD_ROOT      = File.dirname(__FILE__) + "/../../board"
     SHORT_URL       = "https://api-ssl.bitly.com/v3/shorten?access_token=%s&longUrl=%s"
