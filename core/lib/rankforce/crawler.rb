@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+require 'rankforce/utils'
 require 'rankforce/consts'
 require 'mechanize'
 require 'json'
@@ -6,18 +7,20 @@ require 'parallel_runner'
 
 module RankForce
   class Crawler
+    include RankForce::Utils
     include RankForce::Consts
 
-    def initialize(board, ikioi)
+    def initialize(board, ikioi, ngwords)
       @board = board
       @ikioi = ikioi.to_i
+      @ngwords = Regexp.union(ngwords)
       @agent = Mechanize.new
       @agent.user_agent_alias = "Windows IE 8"
       @agent.read_timeout = CRAWLE_TIMEOUT
     end
 
     def get
-      get_board_data(@board, @ikioi).each_parallel {|board_data| yield board_data, @board}
+      get_board_data.each_parallel {|board_data| yield board_data, @board}
     end
 
     private
@@ -37,22 +40,26 @@ module RankForce
       result
     end
 
-    def get_board_data(board, threshold)
+    def get_board_data
       list = []
-      site = @agent.get(CRAWLE_URL, {'board' => board})
+      site = @agent.get(CRAWLE_URL, {'board' => @board})
       site.encoding = 'CP932'
       lines = (site/'//table[@class="forces first_f"]/tr')
       lines.each do |line|
         ikioi = line.search("td.ikioi").text.to_i
         url = (line.search("td.title a").map {|e| e["href"].to_s})[0]
-        next if url.nil? || ikioi < threshold
-        title = line.search("td.title").text.strip.encode("UTF-8")
+        title = delete_copy(line.search("td.title").text.strip.encode("UTF-8"))
+        if @ngwords =~ title
+          syslog.warn("NG Word contained: " + title)
+          next
+        end
+        next if url.nil? || ikioi < @ikioi
         date = Time.at($1.to_i).to_s if /(\d{10})/ =~ url
         list << {
           :ikioi => ikioi,
           :title => title,
           :url => url,
-          :board => board,
+          :board => @board,
           :created_at => date
         }
       end

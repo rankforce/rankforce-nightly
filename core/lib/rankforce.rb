@@ -42,7 +42,7 @@ module RankForce
     def run(board, ikioi)
       begin
         signal
-        crawler = Crawler.new(board, ikioi)
+        crawler = Crawler.new(board, ikioi, ngwords)
         crawler.get do |data, name|
           begin
             data[:url] = delete_resnum(data[:url])
@@ -50,7 +50,7 @@ module RankForce
               @limit.run do |count, limit_date|
                 syslog.info("Tweet count: #{count}/#{TWEET_LIMIT}")
                 syslog.info("Limit date: #{limit_date}")
-                data[:title] = delete_copy(data[:title])
+                data[:title] = data[:title]
                 data[:url] = to_short(add_resnum(data[:url], DEFAULT_RES_NUM))
                 data[:board] = @board.to_ja name.to_s
                 @twitter.post(data) {|text| logger.info(text)}

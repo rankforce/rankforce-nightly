@@ -30,7 +30,7 @@ describe RankForce do
   describe 'クローラ処理' do
     it 'スレ情報を取得できること' do
       board = 'newsplus'
-      crawler = RankForce::Crawler.new(board, 1000)
+      crawler = RankForce::Crawler.new(board, 1000, [])
       crawler.get do |data|
         expect(data[:ikioi]).to be_a_kind_of(Fixnum)
         expect(data[:title]).not_to be_nil
@@ -38,6 +38,22 @@ describe RankForce do
         expect(data[:url]).to match(/http:\/\/.*?/)
         expect(data[:created_at]).not_to be_nil
       end
+    end
+
+    it 'NGワードが含まれる場合、スレ情報を取得できないこと' do
+      board = 'newsplus'
+      crawler = RankForce::Crawler.new(board, 1000, [])
+      ngwords = []
+      crawler.get do |data|
+        ngwords << data[:title]
+      end
+
+      crawler = RankForce::Crawler.new(board, 1000, ngwords)
+      isOk = true
+      crawler.get do |data|
+        isOk = false
+      end
+      expect(isOk).to be_truthy
     end
   end
 

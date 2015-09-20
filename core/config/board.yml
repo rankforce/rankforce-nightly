@@ -4,29 +4,29 @@
  #  time: execution time (format: 00:00(24-hour) or 5(minites))
 
 - newsplus:
-    ikioi: 11000
+    ikioi: 12000
     time: 3
 - news:
-    ikioi: 5000
+    ikioi: 7000
     time: 5
 - news4vip:
-    ikioi: 9000
+    ikioi: 11000
     time: 10
 - poverty:
-    ikioi: 8000
+    ikioi: 9000
     time: 12
 - mnewsplus:
-    ikioi: 5000
+    ikioi: 6000
     time: 15
 - bizplus:
-    ikioi: 1500
+    ikioi: 2000
     time: 10
 - news4plus:
-    ikioi: 7000
+    ikioi: 8000
     time: 10
 - wildplus:
-    ikioi: 1500
+    ikioi: 2000
     time: 13
 - liveplus:
-    ikioi: 1500
+    ikioi: 2000
     time: 11
