@@ -45,7 +45,7 @@ module RankForce
       @boards = Hash[*([list_en, list_ja].transpose).flatten]
     end
 
-    def ngwords
+    def load_ngword
       ngwords = []
       File.open("#{CONFIG_ROOT}/#{NGWORD}", 'r:utf-8') do |f|
         f.each_line do |line|

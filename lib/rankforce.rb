@@ -13,6 +13,7 @@ module RankForce
       @twitter = Tweet.new("twitter.auth.test.yml")
       @board = Board.new
       @mongo_client = MongoClient.new("mongolab.test.yml")
+      @ngwords = load_ngword
       super
     end
 
@@ -42,7 +43,7 @@ module RankForce
     def run(board, ikioi)
       begin
         signal
-        crawler = Crawler.new(board, ikioi, ngwords)
+        crawler = Crawler.new(board, ikioi, @ngwords)
         crawler.get do |data, name|
           begin
             data[:url] = delete_resnum(data[:url])
