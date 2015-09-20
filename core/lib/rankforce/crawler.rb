@@ -49,10 +49,7 @@ module RankForce
         ikioi = line.search("td.ikioi").text.to_i
         url = (line.search("td.title a").map {|e| e["href"].to_s})[0]
         title = delete_copy(line.search("td.title").text.strip.encode("UTF-8"))
-        if @ngwords =~ title
-          syslog.warn("NG Word contained: " + title)
-          next
-        end
+        next if @ngwords =~ title
         next if url.nil? || ikioi < @ikioi
         date = Time.at($1.to_i).to_s if /(\d{10})/ =~ url
         list << {
