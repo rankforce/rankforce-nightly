@@ -23,7 +23,7 @@ module RankForce
 
     def save(data)
       saved_data = get({:url => data[:url]})
-      if saved_data.empty?
+      if saved_data.nil? || saved_data.empty?
         data = create_post_data(data)
         if post(data)
           syslog.debug("POST success.")
