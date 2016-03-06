@@ -19,6 +19,7 @@ module RankForce
     def delete_copy(title)
       title.gsub(/\u00A92ch\.net/, '')
            .gsub(/\[\u8EE2\u8F09\u7981\u6B62\]/, '')
+           .gsub(/\[\u7121\u65AD\u8EE2\u8F09\u7981\u6B62\]/, '')
            .gsub(/\[\d+\]/, '')
            .strip unless title.nil?
     end
