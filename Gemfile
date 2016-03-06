@@ -1,15 +1,13 @@
 source 'https://rubygems.org'
-# for local
-# ruby '2.2.2'
-# for Heroku
-ruby '2.2.3'
+ruby '2.2.4'
 
+ENV['NOKOGIRI_USE_SYSTEM_LIBRARIES'] = 'YES'
 gem 'log4ever'
 gem 'parallel_runner'
 gem 'mechanize'
 gem 'httpclient'
 gem 'clockwork'
-gem 'twitter', '>=4.4.4'
+gem 'twitter'
 gem 'tweetstream'
 gem 'sys-proctable'
 gem 'json'
