@@ -8,7 +8,7 @@ module RankForce
     include RankForce::Consts
     include RankForce::Utils
 
-    HOST = 'api.mongolab.com'
+    HOST = 'api.mlab.com'
     PATH = '/api/1/databases/%s/collections/%s'
 
     def initialize(file)
