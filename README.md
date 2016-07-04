@@ -1,7 +1,8 @@
 # rankforce-core
-ranforce([@rankforce](https://twitter.com/rankforce)) is twitter bot for 2ch.  
+ranforce([@ikioichan](https://twitter.com/ikioichan)) is twitter bot for 2ch.  
 Please follow me.  
-This program is the core of [rankforce](https://twitter.com/rankforce).
+This program is the core of [rankforce](https://twitter.com/ikioichan).  
+rankforce has been renamed to `ikioichan`.
 ***
 
 ### ChangeLog
