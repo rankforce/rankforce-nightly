@@ -1,5 +1,5 @@
 # rankforce-nightly
-ranforce([@rankforce](https://twitter.com/rankforce)) is twitter bot for 2ch.  
+ranforce([@ikioichan](https://twitter.com/ikioichan)) is twitter bot for 2ch.  
 Please follow me.
 
 ## License
