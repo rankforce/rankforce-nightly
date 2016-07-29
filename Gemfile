@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.2.4'
+ruby '2.3.1'
 
 ENV['NOKOGIRI_USE_SYSTEM_LIBRARIES'] = 'YES'
+gem 'ffi'
 gem 'log4ever'
 gem 'parallel_runner'
 gem 'mechanize'
