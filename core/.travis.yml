@@ -1,0 +1,19 @@
+sudo: required
+
+services:
+  - docker
+
+# To avoid unnecessary setting because force bundle install by Gemfile.
+# Language can be anything if other than the ruby
+language: php
+
+script:
+  - docker run -e consumer_key=$consumer_key -e consumer_secret=$consumer_secret -e oauth_token=$oauth_token -e oauth_token_secret=$oauth_token_secret -e access_token=$access_token -e apikey=$apikey -e database=$database -e collection=$collection -e auth_token=$auth_token rankforce/ruby rspec
+
+env:
+  global:
+    secure: "vTasyx+b7c4I6SI7qnSCgsLea/wXacVyjxyrXJrRv6zlYsn6H3nlX7XvoIrQe/CsiwnBYQ9nPOcEgCCTDSL3HpQvoYWifh1In/0a/UjWJFMOQlMIIrTN5V952LMiJumTT2Z2BpPyNbI9Se/bbRjrtd28E7d5MIrmQwt9DyUW767+0GPIp44caIv2Ggdvjy3NUQ+wQQdzLt368tIsBwG1QbnwK66B5REKX685Iu7gMKaFKIPNl9uPb+bjzvacOT0SKQmoL6j+Ut/RDsDtqIt/WhN3SN8ptKFIt6fxN1kMTJ2a0L0N70gtH1KN71Iz2p9H98Nesc/EAxtJLAeOEH06A6u0RbxkgQjYjstZkM5A5uytFxBMyklDULl6kMX/Z3dSbTgM20UMpk704A5VKDO4LKIQ5xNFhSOemxFTkR38SdMsPIFiDdvOEqNZYCKa21a8YV5yhEM0XNrm+b5HvnmHksGlSQxxzSs25eh9SLenmuPefI+q/8GXpYig+kFHYWUJiLDsJVgDAjzNXPANwc6AGOZ1idnp50LEeECFJlomObjjlFT2DbpC+WmZE+rOO7pt2Y7BRBTulffhen8kKstTiRPT8rsmnKzHWKqjxhKcZOG885sC8Pbbi5iDILz03MKWUi2v9H7cvmAM020sOAGyCdyTO+Us3WB77YKaNb3NR50="
+
+notifications:
+  slack:
+    secure: tobcQWs5nYA4dk9FkGsYEc7NKTOfwwB43eu4mAa6Iqmr5rRF8fpj0iebwfTrkXBcOCbqfwbr4OMWQ2Dq5PuAp0NlCkHGBr6QH4COzjopO/qOSllVkxnlwi/SKYLcrLdtWdwUCJRbpp72UWCJgq/mhP1ksJf6TtlzpCc5fkO0gxJNUvMb/uUqKUWebHK4bNtNTWE5ffy7Mnxh33Ad+CTV0bqPRuRgwkh0kR4lv/83ew+EzXkxzFPppy4BJMtuBqSDx2RFsY5d8ejwVTJzVz1JLMAKzvrf5VXU+EndeaIx68zDT0bwwyq2H07ovVrL4CTkbI2a4yJDZHPhLee9JQ1fVIS7idV30ChY8drsI1xQDKYkE/vaXjlKE/cB6uOE245X+Ht6uhILTJpwjHSu0CHX3RdyWSXnSg0AsaPZN2g/58W9CzfAK9w6tgVPtxhAE81L+7De9BehEfyUfDN5EN1o4C1KWH9LLw8z6Ha19DG2d/xhJOWSMFu64TiwkuQ3lb14x/R/bcO8rJpxcpnTp10r6NIRAMJKnbMiOmmzgu7EONiUPkjIFuf57p7/rCjGLCqE8OYOhh/xt1sWzn0T17ztzKTlhoJtBq6pvkbRY8OdGsfjUvlvbEJG9zi2qqv2d8DLhGXtFWu39+A1YfEwrdi/BANuLx7vLYHYRczjveyWAlw=
